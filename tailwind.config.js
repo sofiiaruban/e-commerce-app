@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {},
     colors: {
-      
+      'light-sand': '#FCF7E6',
     }
   },
   plugins: []
