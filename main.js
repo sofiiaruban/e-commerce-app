@@ -9,7 +9,8 @@ const PAGINATION_STEP = 5;
 const productsList = document.querySelector('.products-list');
 const pagination = document.querySelector('.pagination');
 let currentPage = 1;
-
+const dummyImg =
+  'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
 async function fetchProducts (currentPage) {
 
 const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
@@ -27,10 +28,28 @@ const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMI
 
 }
 function addProductsToDOM(products, list) {
-    list.innerHTML = ''
+  let productListHTML = ''
+
   products.forEach((product) => {
-    list.innerHTML += `<li>${product.id}</li>`
+    const imageSrc = (product.images[0] && product.images[0].src) || dummyImg
+    productListHTML += `<li class= "flex flex-col w-300">
+        <div class="w-300 h-300">
+        <img class="object-fit rounded" src="${imageSrc}">
+        </div>
+        <div class="flex justify-between my-3">
+          <div class="flex flex-col font-grotesk font-bold text-sm">
+            <p class="first-letter:uppercase">${product.title}</p>
+            <span>${product.variants[0].price} KR.</span> 
+          </div>
+          <div class="flex flex-col font-grotesk font-normal text-sm">
+          <span> Condition </span>
+          <span> Slightly used </span>
+          </div>
+        </div>
+        <button type="button" class="bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
+    </li>`
   })
+  list.innerHTML = productListHTML
 }
 async function fetchAndDisplayProducts(currentPage) {
   try {

@@ -10,24 +10,50 @@
     <title>VooDoo</title>
   </head>
   <body class="bg-light-sand" >
-    <header class="flex justify-between pl-16 py-12 pr-32 w-full border-b">
-      <img class="w-64 h-24" src="./assets/logo.svg" alt="logo">
-      <div class="flex gap-x-5">
-        <img class="w-6 h-6 mt-3" src="assets/shopping-cart.svg" alt="cart">
-        <button type="button" class= "w-28 h-10 bg-black  text-white font-sans font-normal text-xl rounded ">Sign-up</button>
-      </div>
+    <header class="flex justify-between pl-16 py-12 pr-28 w-full border-b mb-24">
+        <img class="w-64 h-24" src="./assets/logo.svg" alt="logo">
+        <div class="flex gap-x-5">
+          <img class="w-6 h-6 mt-3" src="assets/shopping-cart.svg" alt="cart">
+          <button type="button" class= "w-28 h-10 bg-black  text-white font-grotesk font-normal text-xl rounded ">Sign-up</button>
+        </div>
     </header>
-    <div class="wrapper flex justify-center flex-col items-center h-screen">
-    <main class="max-w-7xl">
-      <details class="products-info">
-        <summary></summary>
-        <p></p>
-      </details>
-      <ul class="products-list ">
-      </ul>
-      <ul class="pagination flex gap-2.5"></ul>
-    </main>
-    <footer></footer>
+    <div class="wrapper flex justify-center flex-col items-center">
+      <main class="max-w-7xl">
+        <details class="products-info w-full bg-black rounded text-light-sand p-6 mb-12">
+          <summary class="flex gap-12">
+            <div class="flex">
+              <img class="mr-1" src="./assets/alert-circle.svg" alt="alert circle">
+              <span class="font-grotesk font-bold text-base">ALPHA</span>
+            </div>
+            <p class="grow font-grotesk font-medium text-xs pt-1">Important info regarding our service</p>
+            <img class="cursor-pointer" src="./assets/chevron-down.svg" alt="arrow down">
+          </summary>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, quae vitae nulla possimus id qui,
+            magnam dicta, voluptatibus sapiente vero necessitatibus amet praesentium sit aliquam deserunt?
+            Non veritatis provident delectus.
+          </p>
+        </details>
+        <ul class="products-list flex flex-wrap gap-6 gap-y-12"></ul>
+        <ul class="pagination flex gap-2.5 justify-center mt-16 mb-48"></ul>
+      </main>
+    <footer class="border-t bg-white w-full">
+      <img class= "py-20" src="./assets/logo-footer.svg" alt="logo">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+       <ul><li></li>
+       <li></li>
+       <li></li>
+       <li></li></ul>
+    </footer>
     <script type="module" src="/main.js"></script>
     </div>
   </body>
