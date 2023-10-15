@@ -8,9 +8,13 @@ const TOTAL_PAGES = Math.ceil(TOTAL_PRODUCTS / LIMIT_PER_PAGE);
 const PAGINATION_STEP = 5;
 const productsList = document.querySelector('.products-list');
 const pagination = document.querySelector('.pagination');
+const cartList = document.getElementById('cart')
 let currentPage = 1;
 const dummyImg =
   'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
+
+const cart = []
+
 async function fetchProducts (currentPage) {
 
 const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
@@ -32,21 +36,21 @@ function addProductsToDOM(products, list) {
 
   products.forEach((product) => {
     const imageSrc = (product.images[0] && product.images[0].src) || dummyImg
-    productListHTML += `<li class= "flex flex-col w-300">
+    productListHTML += `<li class= "flex flex-col w-300" id=${product.id} data-product-id=${product.id}>
         <div class="w-300 h-300">
-        <img class="object-fit rounded" src="${imageSrc}">
+        <img class="src object-fit rounded" data-product-src="${imageSrc}" src="${imageSrc}">
         </div>
         <div class="flex justify-between my-3">
           <div class="flex flex-col font-grotesk font-bold text-sm">
-            <p class="first-letter:uppercase">${product.title}</p>
-            <span>${product.variants[0].price} KR.</span> 
+            <p class="first-letter:uppercase title">${product.title}</p>
+            <span class="price">${product.variants[0].price}</span> <span>KR.</span>
           </div>
           <div class="flex flex-col font-grotesk font-normal text-sm">
           <span> Condition </span>
           <span> Slightly used </span>
           </div>
         </div>
-        <button type="button" class="bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
+        <button type="button" data-product-id=${product.id} class="add-button bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
     </li>`
   })
   list.innerHTML = productListHTML
@@ -127,6 +131,40 @@ function swapPages(direction) {
   displayPagination(newStart, newEnd)
 }
 
+function addProductToCart(productId) {
+cartList.innerHTML = ''
+let product = document.getElementById(`${productId}`)
+console.log(productId)
+let titleElement = product.querySelector('.title')
+let priceElement = product.querySelector('.price')
+let srcElement = product.querySelector('.src')
+let title = titleElement.textContent
+let price = priceElement.textContent
+let src = srcElement.getAttribute('data-product-src')
+
+  if (product) {
+    const productIndex = cart.findIndex((item) => item.id === product.id)
+    if (productIndex !== -1) {
+      cart[productIndex].quantity++
+    } else {
+      cart.push({
+        id: product.id,
+        title: title,
+        price: price,
+        src: src,
+        quantity: 1
+      })
+    }
+
+    console.log('Product added to cart:', cart)
+  }
+}
+function displayCart(cartProductsList) {
+   cartProductsList.forEach(product => {
+     cartList.innerHTML += `<li data-product-id=${product.id}><img class="w-20 h-20" src=${product.src}><p>${product.title}</p><div class="flex flex-col"><span>${product.price}</span><span>${product.quantity}</span></div></li>`
+   })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(DEFAULT_PAGE)
   displayPagination(DEFAULT_PAGE, PAGINATION_STEP)
@@ -147,4 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   })
+  document.querySelector('.products-list').addEventListener('click', (event) => {
+      if (event.target.classList.contains('add-button')) {
+        const productId = event.target.getAttribute('data-product-id')
+        addProductToCart(productId)
+        displayCart(cart)
+      }
+    }
+  )
 })
