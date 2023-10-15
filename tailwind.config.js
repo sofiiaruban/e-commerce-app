@@ -5,6 +5,8 @@ export default {
     extend: {},
     colors: {
       'light-sand': '#FCF7E6',
+      'black': '#000000',
+      'white': '#ffffff'
     }
   },
   plugins: []

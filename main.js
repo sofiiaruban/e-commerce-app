@@ -12,8 +12,7 @@ let currentPage = 1;
 
 async function fetchProducts (currentPage) {
 
-const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage |  DEFAULT_PAGE
-}`
+const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
 
   try {
     const response = await fetch(API_URL);
@@ -48,43 +47,45 @@ function getPagesList(start, end) {
     }
   return pages
 }
-
+function getPaginationStart(){
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`
+  pagination.innerHTML +=
+    '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>'
+}
+function getPaginationPages(pagesList) {
+  pagesList.forEach((page) => {
+    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
+  })
+}
+function getPaginationEnd(){
+  pagination.innerHTML +='<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>'
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`
+}
 function displayPagination(start, end) {
   const pages = getPagesList(start, end);
   pagination.innerHTML = '';
 
-  
-  console.log(currentPage);
-
-    if (currentPage === DEFAULT_PAGE && currentPage <= 5) {
-      pages.forEach((page) => {
-        pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
-      })
-
-      if (end <= TOTAL_PAGES - PAGINATION_STEP) {
-        pagination.innerHTML +=
-          '<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>'
-        pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`
-      }
+  if (currentPage === DEFAULT_PAGE 
+    && currentPage <= PAGINATION_STEP) {
+    getPaginationPages(pages)
+    if (end <= TOTAL_PAGES - PAGINATION_STEP) {
+      getPaginationEnd()
     }
-  if (currentPage >=6 && currentPage <=15) {
-    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`
-    pagination.innerHTML +=
-      '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>'
-    pages.forEach((page) => {
-      pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
-    })
-    pagination.innerHTML +=
-      '<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>'
-    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`
   }
-  if (currentPage === 16 && currentPage <= 20) {
-     pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`
-     pagination.innerHTML +=
-       '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>'
-     pages.forEach((page) => {
-       pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
-     })
+
+  if (
+    currentPage >= PAGINATION_STEP + 1 &&
+    currentPage <= TOTAL_PAGES - PAGINATION_STEP
+  ) {
+    getPaginationStart()
+    getPaginationPages(pages)
+    getPaginationEnd()
+  }
+
+  if (currentPage >= TOTAL_PAGES - PAGINATION_STEP + 1 
+    && currentPage <= TOTAL_PAGES) {
+    getPaginationStart()
+    getPaginationPages(pages)
   }  
 }
 
@@ -117,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (event.target.classList.contains('pagination-ellipsis-back')) {
       swapPages("back")
-      console.log("its not work")
     }
     if (event.target.classList.contains('page')) {
       const clickedPage = parseInt(event.target.textContent, 10)
