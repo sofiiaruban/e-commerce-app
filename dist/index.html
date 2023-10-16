@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/e-commerce-app/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    <title>VooDoo</title>
+    <script type="module" crossorigin src="/e-commerce-app/js/main-a5426c32.js"></script>
+    <link rel="stylesheet" href="/e-commerce-app/styles/index-37dc94e7.css">
+  </head>
+  <body class="bg-light-sand">
+    <header class="border-b mb-24">
+        <div class="flex container justify-between items-center py-12 mx-auto max-w-7xl">
+          <div>
+            <img class="w-64 h-24" src="/e-commerce-app/assets/logo-8dd424c9.svg" alt="logo">
+          </div>
+          <div class="flex gap-6">
+            <img class="cart-icon w-6 h-6 mt-3" src="/e-commerce-app/assets/shopping-cart-1819dc10.svg" alt="cart">
+            <button type="button" class="w-28 h-10 bg-black text-white font-grotesk font-normal text-xl rounded ">Sign-up</button>
+          </div>
+        </div>
+    </header>
+    <div class="flex justify-center flex-col items-center">
+        <main class="main-content max-w-7xl">
+          <custom-disclosure>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, quae vitae nulla possimus id qui,
+              magnam dicta, voluptatibus sapiente vero necessitatibus amet praesentium sit aliquam deserunt?
+              Non veritatis provident delectus.
+            </p>
+          </custom-disclosure>
+          <ul class="products-list flex flex-wrap gap-6 gap-y-12 font-grotesk"></ul>
+          <ul class="pagination flex gap-2.5 justify-center mt-16 mb-48"></ul>
+        </main>
+        <footer class="border-t bg-white w-full flex gap-6 pb-10" >
+          <img class= "basis-1/5" src="/e-commerce-app/assets/logo-footer-6550b909.svg" alt="logo">
+          <div class= "basis-1/5 font-space text-sm font-bold pt-10">
+            <ul>
+              <li class="mb-4"><a href="#">FAQ</a></li>
+              <li class="mb-4"><a href="#">RETURNS</a></li>
+              <li class="mb-4"><a href="#">CONTACT</a></li>
+            </ul>
+          </div>
+          <div class= "basis-1/5 font-space text-sm font-bold pt-10">
+            <ul>
+              <li class="mb-4"><a href="#">TERMS & CONDITIONS</a></li>
+              <li class="mb-4"><a href="#">PRIVACY POLICY</a></li>
+              <li class="mb-4"><a href="#">COOKIE POLICY</a></li>
+              <li class="mb-4"><a href="#">COOKIE SETTINGS</a></li>
+            </ul>
+          </div>
+          <div class="font-grotesk basis-1/5 pt-10">
+            <ul>
+              <li class="mb-4"><a href="#">ABOUT SECOND CHANCE</a></li>
+              <li class="mb-4"><a href="#">CAREER</a></li>
+              <li class="mb-4"><a href="#">FACEBOOK</a></li>
+              <li class="mb-4"><a href="#">INSTAGRAM</a></li>
+            </ul>
+        </div>
+      </footer>
+      <aside class="cart-aside hidden fixed top-0 right-0 h-full px-9 w-1/3 bg-black text-light-sand font-grotesk font-bold">
+        <div class="flex border-b-2 border-light-sand pb-6 pt-11 justify-between mb-14">
+          <h3 class="text-2xl">Shopping cart</h3>
+          <img class= "close-cart cursor-pointer" src="/e-commerce-app/assets/close-eb4187b9.svg" alt="close">
+        </div>
+        <ul class="cart-list list-none w-full gap-10 border-b-2 border-light-sand">
+          <li>There are no products yet </li>
+        </ul>
+        <div class="flex justify-between pt-8">
+          <p class="total">TOTAL:</p> 
+          <div class="gap-2">
+            <span class="total-amount">0.00</span>
+            <span>KR.</span>
+          </div>
+        </div>
+      </aside>
+      
+      <script src="custom-disclosure-element.js"></script>
+    </div>
+  </body>
+</html>
