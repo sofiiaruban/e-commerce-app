@@ -2,6 +2,8 @@ class CustomDisclosure extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.attractionimg = './assets/alert-circle.svg';
+        this.arrowimg = './assets/chevron-down.svg';
         this.shadowRoot.innerHTML = `
             <style>
               .products-info {
@@ -43,11 +45,11 @@ class CustomDisclosure extends HTMLElement {
             <details class="products-info">
                 <summary class="summary">
                     <div class="attention-sign">
-                        <img class="alert-circle" src="./assets/alert-circle.svg" alt="alert circle">
+                        <img class="alert-circle" src=${this.attractionimg} alt="alert circle">
                         <span class="alpha">ALPHA</span>
                     </div>
                     <p class="message">Important info regarding our service</p>
-                    <img class="arrow-down" src="./assets/chevron-down.svg" alt="arrow down">
+                    <img class="arrow-down" src=${this.arrowimg} alt="arrow down">
                 </summary>
                 <p>
                     <slot></slot>
