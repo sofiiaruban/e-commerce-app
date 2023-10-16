@@ -9,16 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
     <title>VooDoo</title>
   </head>
-  <body class="bg-light-sand" >
-    <header class="flex justify-between pl-16 py-12 pr-28 w-full border-b mb-24">
-        <img class="w-64 h-24" src="./assets/logo.svg" alt="logo">
-        <div class="flex gap-x-5">
-          <img class="cart-icon w-6 h-6 mt-3" src="assets/shopping-cart.svg" alt="cart">
-          <button type="button" class="w-28 h-10 bg-black  text-white font-grotesk font-normal text-xl rounded ">Sign-up</button>
+  <body class="bg-light-sand">
+    <header class="border-b mb-24">
+        <div class="flex container justify-between items-center py-12 mx-auto max-w-7xl">
+          <div>
+            <img class="w-64 h-24" src="./assets/logo.svg" alt="logo">
+          </div>
+          <div class="flex gap-6">
+            <img class="cart-icon w-6 h-6 mt-3" src="assets/shopping-cart.svg" alt="cart">
+            <button type="button" class="w-28 h-10 bg-black text-white font-grotesk font-normal text-xl rounded ">Sign-up</button>
+          </div>
         </div>
     </header>
-    <div class="wrapper flex justify-center flex-col items-center">
-      <div class="h-full">
+    <div class="flex justify-center flex-col items-center">
         <main class="main-content max-w-7xl">
           <custom-disclosure>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, quae vitae nulla possimus id qui,
@@ -29,8 +32,7 @@
           <ul class="products-list flex flex-wrap gap-6 gap-y-12 font-grotesk"></ul>
           <ul class="pagination flex gap-2.5 justify-center mt-16 mb-48"></ul>
         </main>
-      </div>
-      <footer class="border-t bg-white w-full">
+        <footer class="border-t bg-white w-full">
         <img class= "py-20" src="./assets/logo-footer.svg" alt="logo">
           <ul>
             <li></li>

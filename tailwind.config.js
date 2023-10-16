@@ -6,7 +6,8 @@ export default {
   theme: {
     extend: {
       width: {
-        300: '300px'
+        300: '300px',
+        1280: '1280px'
       },
       height: {
         300: '300px'
