@@ -5,8 +5,6 @@ class CustomDisclosure extends HTMLElement {
 
   constructor() {
     super()
-    this.attractionimg = './assets/alert-circle.png'
-    this.arrowimg = './assets/chevron-down.png'
     this.attachShadow({ mode: 'open' })
   }
   connectedCallback() {
@@ -36,6 +34,8 @@ class CustomDisclosure extends HTMLElement {
       }
       .alert-circle {
         margin-right: 4px;
+        width: 20px;
+        height: 20px;
       }
       .alpha {
         font-size: 1rem;
@@ -49,16 +49,18 @@ class CustomDisclosure extends HTMLElement {
       }
       .arrow-down {
         cursor: pointer;
+        width: 24px;
+        height: 24px;
       }
     </style>
      <details class="products-info">
        <summary class="summary">
          <div class="attention-sign">
-           <img class="alert-circle" src="${this.attractionimg}" alt="alert circle" />
+           <img class="alert-circle" src="https://cdn.pixabay.com/photo/2023/10/16/16/59/16-59-29-381_1280.png" alt="alert circle" />
            <span class="alpha">ALPHA</span>
          </div>
          <p class="message">Important info regarding our service</p>
-         <img class="arrow-down" src="${this.arrowimg}" alt="arrow down" />
+         <img class="arrow-down" src="https://cdn.pixabay.com/photo/2023/10/16/17/04/17-04-27-888_1280.png" alt="arrow down" />
        </summary>
        <p>
          <slot></slot>
