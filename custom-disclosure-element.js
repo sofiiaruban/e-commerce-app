@@ -1,8 +1,5 @@
 class CustomDisclosure extends HTMLElement {
-  static get observedAttributes() {
-    return ['attractionimg', 'arrowimg']
-  }
-
+  
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
