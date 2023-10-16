@@ -13,12 +13,14 @@ const cartIcon = document.querySelector('.cart-icon');
 const closeCartIcon = document.querySelector('.close-cart');
 const mainContent = document.querySelector('.main-content');
 const totalAmount = document.querySelector('.total-amount');
+
 let currentPage = 1;
 const dummyImg =
   'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
 
 const cart = [];
 let total = 0;
+let previousPage = null;
 
 // products list display functions
 
@@ -48,7 +50,10 @@ function addProductsToDOM(products, list) {
         <div class="flex justify-between my-3 text-sm">
           <div class="flex flex-col font-bold">
             <p class="first-letter:uppercase title">${product.title}</p>
-            <span class="price">${product.variants[0].price}</span> <span>KR.</span>
+            <div class="flex">
+              <span class="price mr-2">${product.variants[0].price}</span>
+              <span>KR.</span>
+            </div>
           </div>
           <div class="flex flex-col font-normal">
           <span> Condition </span>
@@ -56,7 +61,7 @@ function addProductsToDOM(products, list) {
           </div>
         </div>
         <button type="button" data-product-id=${product.id} class="add-button bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
-    </li>`;
+    </li>`
   })
   list.innerHTML = productListHTML;
 }
@@ -81,20 +86,20 @@ function getPagesList(start, end) {
 }
 
 function getPaginationStart(){
-  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`;
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center' id=${DEFAULT_PAGE}>${DEFAULT_PAGE}</li>`
   pagination.innerHTML +=
-    '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>';
+    '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center">...</li>';
 }
 
 function getPaginationPages(pagesList) {
   pagesList.forEach((page) => {
-    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`;
+    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center' id=${page}>${page}</li>`
   })
 }
 
 function getPaginationEnd(){
   pagination.innerHTML +='<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>';
-  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`;
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center' id=${TOTAL_PAGES}>${TOTAL_PAGES}</li>`
 }
 
 function displayPagination(start, end) {
@@ -122,7 +127,8 @@ function displayPagination(start, end) {
     && currentPage <= TOTAL_PAGES) {
     getPaginationStart();
     getPaginationPages(pages);
-  }  
+  } 
+  setCurrentPageStyle(currentPage);
 }
 
 function swapPages(direction) {
@@ -145,6 +151,19 @@ function swapPages(direction) {
   currentPage = newStart;
   fetchAndDisplayProducts(currentPage);
   displayPagination(newStart, newEnd);
+}
+function setCurrentPageStyle(currentPage) {
+  console.log(currentPage)
+  let page = document.getElementById(currentPage);
+  console.log(page)
+  if (page) {
+     if (previousPage) {
+       previousPage.classList.remove('bg-black', 'text-white')
+     }
+
+     page.classList.add('bg-black', 'text-white')
+     previousPage = page
+  }
 }
 
 // cart functions
@@ -264,8 +283,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (clickedPage >= DEFAULT_PAGE && clickedPage <= TOTAL_PAGES) {
         currentPage = clickedPage;
         fetchAndDisplayProducts(currentPage);
+        setCurrentPageStyle(`${currentPage}`);
       }
+     
     }
+    
   });
 
   productsList.addEventListener('click', (event) => {
@@ -287,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.classList.contains('decrease-product-quantity')) {
       const productId = event.target.getAttribute('data-product-id');
       decreaseProductQuantity(productId);
-      console.log('click decrease');
       displayCart(cart);
     }
 
@@ -295,7 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const productId = event.target.getAttribute('data-product-id');
       console.log(productId);
       deleteProductFromCart(productId);
-      console.log('click delete');
       displayCart(cart);
     }
   });
