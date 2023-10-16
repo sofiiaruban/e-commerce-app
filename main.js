@@ -18,30 +18,28 @@ let currentPage = 1;
 const dummyImg =
   'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
 
-const cart = []
-let total = 0
+const cart = [];
+let total = 0;
 
 async function fetchProducts (currentPage) {
+  const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
 
-const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
-
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.status}`);
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
     }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-
 }
+
 function addProductsToDOM(products, list) {
   let productListHTML = ''
-
   products.forEach((product) => {
-    const imageSrc = (product.images[0] && product.images[0].src) || dummyImg
+    const imageSrc = (product.images[0] && product.images[0].src) || dummyImg;
     productListHTML += `<li class= "flex flex-col w-300" id=${product.id} data-product-id=${product.id}>
         <div class="w-300 h-300">
         <img class="src object-fit rounded" data-product-src="${imageSrc}" src="${imageSrc}">
@@ -57,43 +55,45 @@ function addProductsToDOM(products, list) {
           </div>
         </div>
         <button type="button" data-product-id=${product.id} class="add-button bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
-    </li>`
+    </li>`;
   })
-  list.innerHTML = productListHTML
+  list.innerHTML = productListHTML;
 }
 
 async function fetchAndDisplayProducts(currentPage) {
   try {
-    const data = await fetchProducts(currentPage)
-    addProductsToDOM(data.products, productsList)
+    const data = await fetchProducts(currentPage);
+    addProductsToDOM(data.products, productsList);
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error:', error);
   }
 }
 
+//pagination
+
 function getPagesList(start, end) {
-  let pages = [] 
+  let pages = [];
     for (let i = start; i <= end; i++) {
-      pages.push(i)
+      pages.push(i);
     }
-  return pages
+  return pages;
 }
 
 function getPaginationStart(){
-  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`;
   pagination.innerHTML +=
-    '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>'
+    '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>';
 }
 
 function getPaginationPages(pagesList) {
   pagesList.forEach((page) => {
-    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
+    pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`;
   })
 }
 
 function getPaginationEnd(){
-  pagination.innerHTML +='<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>'
-  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`
+  pagination.innerHTML +='<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>';
+  pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`;
 }
 
 function displayPagination(start, end) {
@@ -102,9 +102,9 @@ function displayPagination(start, end) {
 
   if (currentPage === DEFAULT_PAGE 
     && currentPage <= PAGINATION_STEP) {
-    getPaginationPages(pages)
+    getPaginationPages(pages);
     if (end <= TOTAL_PAGES - PAGINATION_STEP) {
-      getPaginationEnd()
+      getPaginationEnd();
     }
   }
 
@@ -112,15 +112,15 @@ function displayPagination(start, end) {
     currentPage >= PAGINATION_STEP + 1 &&
     currentPage <= TOTAL_PAGES - PAGINATION_STEP
   ) {
-    getPaginationStart()
-    getPaginationPages(pages)
-    getPaginationEnd()
+    getPaginationStart();
+    getPaginationPages(pages);
+    getPaginationEnd();
   }
 
   if (currentPage >= TOTAL_PAGES - PAGINATION_STEP + 1 
     && currentPage <= TOTAL_PAGES) {
-    getPaginationStart()
-    getPaginationPages(pages)
+    getPaginationStart();
+    getPaginationPages(pages);
   }  
 }
 
@@ -129,40 +129,41 @@ function swapPages(direction) {
   let newEnd; 
 
   if (direction === "forward") {
-    newStart = currentPage + PAGINATION_STEP
-    newEnd = newStart + PAGINATION_STEP - 1
+    newStart = currentPage + PAGINATION_STEP;
+    newEnd = newStart + PAGINATION_STEP - 1;
   }
 
   if (direction === "back") {
-   newStart = currentPage - PAGINATION_STEP
-   newEnd = currentPage-1
+   newStart = currentPage - PAGINATION_STEP;
+   newEnd = currentPage-1;
   }
 
   if (newStart > TOTAL_PAGES || newStart < 1) {
     return
   }
-  currentPage = newStart
-  fetchAndDisplayProducts(currentPage)
-  displayPagination(newStart, newEnd)
+  currentPage = newStart;
+  fetchAndDisplayProducts(currentPage);
+  displayPagination(newStart, newEnd);
 }
 
+// cart functions
+
 function addProductToCart(productId) {
-  cartList.innerHTML = ''
-  let product = document.getElementById(`${productId}`)
+  cartList.innerHTML = '';
+  let product = document.getElementById(`${productId}`);
 
     if (product) {
-      const productIndex = cart.findIndex((item) => item.id === product.id)
+      const productIndex = cart.findIndex((item) => item.id === product.id);
 
       if (productIndex !== -1) {
-        cart[productIndex].quantity++
-           console.log('Product quantity updated to cart:', cart)
+        cart[productIndex].quantity++;
       } else {
-        let titleElement = product.querySelector('.title')
-        let priceElement = product.querySelector('.price')
-        let srcElement = product.querySelector('.src')
-        let title = titleElement.textContent
-        let price = priceElement.textContent
-        let src = srcElement.getAttribute('data-product-src')
+        let titleElement = product.querySelector('.title');
+        let priceElement = product.querySelector('.price');
+        let srcElement = product.querySelector('.src');
+        let title = titleElement.textContent;
+        let price = priceElement.textContent;
+        let src = srcElement.getAttribute('data-product-src');
         cart.push({
           id: product.id,
           title: title,
@@ -170,39 +171,39 @@ function addProductToCart(productId) {
           src: src,
           quantity: 1
         })
-        console.log('Product added to cart:', cart)
       }
     }
-  calculateTotal(cart)
+  calculateTotal(cart);
 }
+
 function deleteProductFromCart(productId) {
-  cartList.innerHTML = ''
-  const productIndex = cart.findIndex((item) => item.id === productId)
+  cartList.innerHTML = '';
+  const productIndex = cart.findIndex((item) => item.id === productId);
   if (productIndex !== -1) {
-    cart.splice(productIndex, 1)
-    console.log('Product removed from cart:', cart)
+    cart.splice(productIndex, 1);
   }
-  calculateTotal(cart)
+  calculateTotal(cart);
 }
+
 function decreaseProductQuantity(productId) {
-  cartList.innerHTML = ''
+  cartList.innerHTML = '';
   const productIndex = cart.findIndex((item) => item.id === productId)
+
   if (productIndex !== -1) {
     if (cart[productIndex].quantity > 1) {
-      cart[productIndex].quantity--
-      console.log('Product quantity decreased in cart:', cart)
+      cart[productIndex].quantity--;
     } else {
-      deleteProductFromCart(productId)
+      deleteProductFromCart(productId);
     }
   }
-  calculateTotal(cart)
+  calculateTotal(cart);
 }
 function calculateTotal(cart) {
-  total = 0
+  total = 0;
   for (const item of cart) {
-    total += item.quantity * parseFloat(item.price)
+    total += item.quantity * parseFloat(item.price);
   }
-  return (totalAmount.textContent = total.toFixed(2))
+  return (totalAmount.textContent = total.toFixed(2));
 }
 
 function displayCart(cartProductsList) {

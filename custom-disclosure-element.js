@@ -2,7 +2,6 @@ class CustomDisclosure extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-
         this.shadowRoot.innerHTML = `
             <style>
               .products-info {
