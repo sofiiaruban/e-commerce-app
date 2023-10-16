@@ -8,7 +8,9 @@ const TOTAL_PAGES = Math.ceil(TOTAL_PRODUCTS / LIMIT_PER_PAGE);
 const PAGINATION_STEP = 5;
 const productsList = document.querySelector('.products-list');
 const pagination = document.querySelector('.pagination');
-const cartList = document.getElementById('cart')
+const cartList = document.querySelector('.cart-list');
+const cartAside = document.querySelector('.cart-aside');
+
 let currentPage = 1;
 const dummyImg =
   'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
@@ -40,12 +42,12 @@ function addProductsToDOM(products, list) {
         <div class="w-300 h-300">
         <img class="src object-fit rounded" data-product-src="${imageSrc}" src="${imageSrc}">
         </div>
-        <div class="flex justify-between my-3">
-          <div class="flex flex-col font-grotesk font-bold text-sm">
+        <div class="flex justify-between my-3 text-sm">
+          <div class="flex flex-col font-bold">
             <p class="first-letter:uppercase title">${product.title}</p>
             <span class="price">${product.variants[0].price}</span> <span>KR.</span>
           </div>
-          <div class="flex flex-col font-grotesk font-normal text-sm">
+          <div class="flex flex-col font-normal">
           <span> Condition </span>
           <span> Slightly used </span>
           </div>
@@ -134,19 +136,19 @@ function swapPages(direction) {
 function addProductToCart(productId) {
 cartList.innerHTML = ''
 let product = document.getElementById(`${productId}`)
-console.log(productId)
-let titleElement = product.querySelector('.title')
-let priceElement = product.querySelector('.price')
-let srcElement = product.querySelector('.src')
-let title = titleElement.textContent
-let price = priceElement.textContent
-let src = srcElement.getAttribute('data-product-src')
 
   if (product) {
     const productIndex = cart.findIndex((item) => item.id === product.id)
     if (productIndex !== -1) {
       cart[productIndex].quantity++
+         console.log('Product quantity updated to cart:', cart)
     } else {
+      let titleElement = product.querySelector('.title')
+      let priceElement = product.querySelector('.price')
+      let srcElement = product.querySelector('.src')
+      let title = titleElement.textContent
+      let price = priceElement.textContent
+      let src = srcElement.getAttribute('data-product-src')
       cart.push({
         id: product.id,
         title: title,
@@ -154,22 +156,65 @@ let src = srcElement.getAttribute('data-product-src')
         src: src,
         quantity: 1
       })
+      console.log('Product added to cart:', cart)
     }
 
-    console.log('Product added to cart:', cart)
+  }
+}
+function deleteProductFromCart(productId) {
+  cartList.innerHTML = ''
+  const productIndex = cart.findIndex((item) => item.id === productId)
+  if (productIndex !== -1) {
+    cart.splice(productIndex, 1)
+    console.log('Product removed from cart:', cart)
+  }
+}
+function decreaseProductQuantity(productId) {
+  cartList.innerHTML = ''
+  const productIndex = cart.findIndex((item) => item.id === productId)
+  if (productIndex !== -1) {
+    if (cart[productIndex].quantity > 1) {
+      cart[productIndex].quantity--
+      console.log('Product quantity decreased in cart:', cart)
+    } else {
+      deleteProductFromCart(productId)
+    }
   }
 }
 function displayCart(cartProductsList) {
-   cartProductsList.forEach(product => {
-     cartList.innerHTML += `<li data-product-id=${product.id}><img class="w-20 h-20" src=${product.src}><p>${product.title}</p><div class="flex flex-col"><span>${product.price}</span><span>${product.quantity}</span></div></li>`
-   })
+  if (cartProductsList.length > 0) {
+    cartProductsList.forEach((product) => {
+      cartList.innerHTML += `<li data-product-id=${product.id} class="text-sm flex flex-row gap-5 mb-10">
+      <img class="w-20 h-20 " src=${product.src} alt="product">
+      <div class="product-info grow">
+        <p class="first-letter:uppercase mb-3">${product.title}</p>
+        <div class="flex flex-col">
+           <div class="flex mb-3">
+            <span class="mr-2">${product.price}</span>
+            <span>KR.</span>
+            </div>
+           <span class="decrease-product-quantity cursor-pointer" data-product-id=${product.id}>-<span>
+           <span class="px-1">${product.quantity}</span>
+           <span class="add-product cursor-pointer" data-product-id=${product.id}>+<span>
+         </div>
+      </div>
+      <div>
+        <img class="delete-product cursor-pointer align-top" data-product-id=${product.id} src="./assets/trash-can.svg" alt="trash-can">
+      </div>  
+    </li>`
+    })
+  } else {
+    cartList.innerHTML += '<p>There are no products yet </p>'
+  }
 }
-
+function toggleHiddenClass(element) {
+  element.classList.toggle("hidden")
+}
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(DEFAULT_PAGE)
   displayPagination(DEFAULT_PAGE, PAGINATION_STEP)
 
-  document.querySelector('.pagination').addEventListener('click', (event) => {
+  pagination.addEventListener('click', (event) => {
     if (event.target.classList.contains('pagination-ellipsis-forward')) {
       swapPages("forward")
     }
@@ -185,12 +230,40 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   })
-  document.querySelector('.products-list').addEventListener('click', (event) => {
-      if (event.target.classList.contains('add-button')) {
-        const productId = event.target.getAttribute('data-product-id')
-        addProductToCart(productId)
-        displayCart(cart)
-      }
+
+  productsList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('add-button')) {
+      const productId = event.target.getAttribute('data-product-id')
+      addProductToCart(productId)
+      displayCart(cart)
     }
-  )
+  })
+
+  cartList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('add-product')) {
+      const productId = event.target.getAttribute('data-product-id')
+      addProductToCart(productId)
+      displayCart(cart)
+    }
+    if (event.target.classList.contains('decrease-product-quantity')) {
+      const productId = event.target.getAttribute('data-product-id')
+      decreaseProductQuantity(productId)
+      console.log('click decrease')
+      displayCart(cart)
+    }
+    if (event.target.classList.contains('delete-product')) {
+      const productId = event.target.getAttribute('data-product-id')
+      console.log(productId)
+      deleteProductFromCart(productId)
+      console.log('click delete')
+      displayCart(cart)
+    }
+  })
+  
+  document.querySelector('.cart-icon').addEventListener('click', (event) => {
+    toggleHiddenClass(cartAside)
+  })
+  document.querySelector('.close-cart').addEventListener('click', (event) => {
+    toggleHiddenClass(cartAside)
+  })
 })
