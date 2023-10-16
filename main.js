@@ -153,9 +153,7 @@ function swapPages(direction) {
   displayPagination(newStart, newEnd);
 }
 function setCurrentPageStyle(currentPage) {
-  console.log(currentPage)
   let page = document.getElementById(currentPage);
-  console.log(page)
   if (page) {
      if (previousPage) {
        previousPage.classList.remove('bg-black', 'text-white')
@@ -315,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (event.target.classList.contains('delete-product')) {
       const productId = event.target.getAttribute('data-product-id');
-      console.log(productId);
       deleteProductFromCart(productId);
       displayCart(cart);
     }
