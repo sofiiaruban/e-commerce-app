@@ -1,5 +1,5 @@
 class CustomDisclosure extends HTMLElement {
-  
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
@@ -44,6 +44,11 @@ class CustomDisclosure extends HTMLElement {
         padding-top: 0.25rem;
         flex-grow: 1;
       }
+      .arrow-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center
+      }
       .arrow-down {
         cursor: pointer;
         width: 24px;
@@ -57,7 +62,9 @@ class CustomDisclosure extends HTMLElement {
            <span class="alpha">ALPHA</span>
          </div>
          <p class="message">Important info regarding our service</p>
+         <div class="arrow-icon">
          <img class="arrow-down" src="https://github.com/sofiiaruban/e-commerce-app/assets/37212452/0cbdb34b-c648-45d2-b638-184db4521ce6" alt="arrow down" />
+         </div>
        </summary>
        <p>
          <slot></slot>
