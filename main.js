@@ -10,6 +10,8 @@ const productsList = document.querySelector('.products-list');
 const pagination = document.querySelector('.pagination');
 const cartList = document.querySelector('.cart-list');
 const cartAside = document.querySelector('.cart-aside');
+const cartIcon = document.querySelector('.cart-icon');
+const closeCartIcon = document.querySelector('.close-cart');
 
 let currentPage = 1;
 const dummyImg =
@@ -57,6 +59,7 @@ function addProductsToDOM(products, list) {
   })
   list.innerHTML = productListHTML
 }
+
 async function fetchAndDisplayProducts(currentPage) {
   try {
     const data = await fetchProducts(currentPage)
@@ -65,6 +68,7 @@ async function fetchAndDisplayProducts(currentPage) {
     console.error('Error:', error)
   }
 }
+
 function getPagesList(start, end) {
   let pages = [] 
     for (let i = start; i <= end; i++) {
@@ -72,20 +76,24 @@ function getPagesList(start, end) {
     }
   return pages
 }
+
 function getPaginationStart(){
   pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light flex text-lg items-center justify-center'>${DEFAULT_PAGE}</li>`
   pagination.innerHTML +=
     '<li class="pagination-ellipsis-back border rounded-full h-10 w-10 font-light  flex text-lg items-center justify-center">...</li>'
 }
+
 function getPaginationPages(pagesList) {
   pagesList.forEach((page) => {
     pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${page}</li>`
   })
 }
+
 function getPaginationEnd(){
   pagination.innerHTML +='<li class="pagination-ellipsis-forward border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center">...</li>'
   pagination.innerHTML += `<li class='page border rounded-full h-10 w-10 font-light text-lg flex items-center justify-center'>${TOTAL_PAGES}</li>`
 }
+
 function displayPagination(start, end) {
   const pages = getPagesList(start, end);
   pagination.innerHTML = '';
@@ -115,16 +123,19 @@ function displayPagination(start, end) {
 }
 
 function swapPages(direction) {
-  let  newStart;
+  let newStart;
   let newEnd; 
+
   if (direction === "forward") {
     newStart = currentPage + PAGINATION_STEP
     newEnd = newStart + PAGINATION_STEP - 1
   }
- if (direction === "back") {
+
+  if (direction === "back") {
    newStart = currentPage - PAGINATION_STEP
    newEnd = currentPage-1
- }
+  }
+
   if (newStart > TOTAL_PAGES || newStart < 1) {
     return
   }
@@ -134,32 +145,32 @@ function swapPages(direction) {
 }
 
 function addProductToCart(productId) {
-cartList.innerHTML = ''
-let product = document.getElementById(`${productId}`)
+  cartList.innerHTML = ''
+  let product = document.getElementById(`${productId}`)
 
-  if (product) {
-    const productIndex = cart.findIndex((item) => item.id === product.id)
-    if (productIndex !== -1) {
-      cart[productIndex].quantity++
-         console.log('Product quantity updated to cart:', cart)
-    } else {
-      let titleElement = product.querySelector('.title')
-      let priceElement = product.querySelector('.price')
-      let srcElement = product.querySelector('.src')
-      let title = titleElement.textContent
-      let price = priceElement.textContent
-      let src = srcElement.getAttribute('data-product-src')
-      cart.push({
-        id: product.id,
-        title: title,
-        price: price,
-        src: src,
-        quantity: 1
-      })
-      console.log('Product added to cart:', cart)
+    if (product) {
+      const productIndex = cart.findIndex((item) => item.id === product.id)
+
+      if (productIndex !== -1) {
+        cart[productIndex].quantity++
+           console.log('Product quantity updated to cart:', cart)
+      } else {
+        let titleElement = product.querySelector('.title')
+        let priceElement = product.querySelector('.price')
+        let srcElement = product.querySelector('.src')
+        let title = titleElement.textContent
+        let price = priceElement.textContent
+        let src = srcElement.getAttribute('data-product-src')
+        cart.push({
+          id: product.id,
+          title: title,
+          price: price,
+          src: src,
+          quantity: 1
+        })
+        console.log('Product added to cart:', cart)
+      }
     }
-
-  }
 }
 function deleteProductFromCart(productId) {
   cartList.innerHTML = ''
@@ -207,9 +218,11 @@ function displayCart(cartProductsList) {
     cartList.innerHTML += '<p>There are no products yet </p>'
   }
 }
+
 function toggleHiddenClass(element) {
   element.classList.toggle("hidden")
 }
+
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(DEFAULT_PAGE)
   displayPagination(DEFAULT_PAGE, PAGINATION_STEP)
@@ -260,10 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
   
-  document.querySelector('.cart-icon').addEventListener('click', (event) => {
+  cartIcon.addEventListener('click', (event) => {
     toggleHiddenClass(cartAside)
   })
-  document.querySelector('.close-cart').addEventListener('click', (event) => {
+  closeCartIcon.addEventListener('click', (event) => {
     toggleHiddenClass(cartAside)
   })
 })
