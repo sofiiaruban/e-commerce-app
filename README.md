@@ -20,7 +20,8 @@ Key Features:<br>
 &nbsp; &#8226; Edit the  cart <br>
 
 # Demo link 
-Access my site at [https://sofiiaruban.github.io/task-manager-app/](https://sofiiaruban.github.io/e-commerce-app/)
+Access my site at [https://sofiiaruban.github.io/e-commerce-app/](https://sofiiaruban.github.io/e-commerce-app/)
+
 
 # Screenshots 
 
