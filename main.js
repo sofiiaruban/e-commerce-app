@@ -12,12 +12,14 @@ const cartList = document.querySelector('.cart-list');
 const cartAside = document.querySelector('.cart-aside');
 const cartIcon = document.querySelector('.cart-icon');
 const closeCartIcon = document.querySelector('.close-cart');
-
+const mainContent = document.querySelector('.main-content');
+const totalAmount = document.querySelector('.total-amount');
 let currentPage = 1;
 const dummyImg =
   'https://cdn.shopify.com/s/files/1/0690/0075/7529/products/AAUvwnj0ICORVuxs41ODOvnhvedArLiSV20df7r8XBjEUQ_s900-c-k-c0x00ffffff-no-rj_72c7d7cb-344c-4f62-ad0d-f75ec755894d.jpg?v=1670516960'
 
 const cart = []
+let total = 0
 
 async function fetchProducts (currentPage) {
 
@@ -171,6 +173,7 @@ function addProductToCart(productId) {
         console.log('Product added to cart:', cart)
       }
     }
+  calculateTotal(cart)
 }
 function deleteProductFromCart(productId) {
   cartList.innerHTML = ''
@@ -179,6 +182,7 @@ function deleteProductFromCart(productId) {
     cart.splice(productIndex, 1)
     console.log('Product removed from cart:', cart)
   }
+  calculateTotal(cart)
 }
 function decreaseProductQuantity(productId) {
   cartList.innerHTML = ''
@@ -191,7 +195,16 @@ function decreaseProductQuantity(productId) {
       deleteProductFromCart(productId)
     }
   }
+  calculateTotal(cart)
 }
+function calculateTotal(cart) {
+  total = 0
+  for (const item of cart) {
+    total += item.quantity * parseFloat(item.price)
+  }
+  return (totalAmount.textContent = total.toFixed(2))
+}
+
 function displayCart(cartProductsList) {
   if (cartProductsList.length > 0) {
     cartProductsList.forEach((product) => {
@@ -219,9 +232,11 @@ function displayCart(cartProductsList) {
   }
 }
 
-function toggleHiddenClass(element) {
-  element.classList.toggle("hidden")
+function toggleElementClass(element, className) {
+  element.classList.toggle(className)
 }
+
+//event listeners
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchAndDisplayProducts(DEFAULT_PAGE)
@@ -274,9 +289,11 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   
   cartIcon.addEventListener('click', (event) => {
-    toggleHiddenClass(cartAside)
+    toggleElementClass(cartAside,  'hidden')
+    toggleElementClass(mainContent, 'invisible')
   })
   closeCartIcon.addEventListener('click', (event) => {
-    toggleHiddenClass(cartAside)
+    toggleElementClass(cartAside, 'hidden')
+    toggleElementClass(mainContent, 'invisible')
   })
 })
