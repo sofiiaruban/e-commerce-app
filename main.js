@@ -1,6 +1,5 @@
 import './style.css'
 
-
 const TOTAL_PRODUCTS = 461;
 const DEFAULT_PAGE = 1;
 const LIMIT_PER_PAGE = 24;
@@ -20,6 +19,8 @@ const dummyImg =
 
 const cart = [];
 let total = 0;
+
+// products list display functions
 
 async function fetchProducts (currentPage) {
   const API_URL = `https://voodoo-sandbox.myshopify.com/products.json?limit=${LIMIT_PER_PAGE}&page=${currentPage}`
@@ -226,22 +227,22 @@ function displayCart(cartProductsList) {
       <div>
         <img class="delete-product cursor-pointer align-top" data-product-id=${product.id} src="./assets/trash-can.svg" alt="trash-can">
       </div>  
-    </li>`
+    </li>`;
     })
   } else {
-    cartList.innerHTML += '<p>There are no products yet </p>'
+    cartList.innerHTML += '<p>There are no products yet </p>';
   }
 }
 
 function toggleElementClass(element, className) {
-  element.classList.toggle(className)
+  element.classList.toggle(className);
 }
 
 //event listeners
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetchAndDisplayProducts(DEFAULT_PAGE)
-  displayPagination(DEFAULT_PAGE, PAGINATION_STEP)
+  fetchAndDisplayProducts(DEFAULT_PAGE);
+  displayPagination(DEFAULT_PAGE, PAGINATION_STEP);
 
   pagination.addEventListener('click', (event) => {
     if (event.target.classList.contains('pagination-ellipsis-forward')) {
@@ -258,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(currentPage)
       }
     }
-  })
+  });
 
   productsList.addEventListener('click', (event) => {
     if (event.target.classList.contains('add-button')) {
@@ -266,20 +267,23 @@ document.addEventListener('DOMContentLoaded', () => {
       addProductToCart(productId)
       displayCart(cart)
     }
-  })
+  });
 
   cartList.addEventListener('click', (event) => {
+
     if (event.target.classList.contains('add-product')) {
       const productId = event.target.getAttribute('data-product-id')
       addProductToCart(productId)
       displayCart(cart)
     }
+
     if (event.target.classList.contains('decrease-product-quantity')) {
       const productId = event.target.getAttribute('data-product-id')
       decreaseProductQuantity(productId)
       console.log('click decrease')
       displayCart(cart)
     }
+
     if (event.target.classList.contains('delete-product')) {
       const productId = event.target.getAttribute('data-product-id')
       console.log(productId)
@@ -287,14 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('click delete')
       displayCart(cart)
     }
-  })
+  });
   
   cartIcon.addEventListener('click', (event) => {
     toggleElementClass(cartAside,  'hidden')
     toggleElementClass(mainContent, 'invisible')
-  })
+  });
+
   closeCartIcon.addEventListener('click', (event) => {
     toggleElementClass(cartAside, 'hidden')
     toggleElementClass(mainContent, 'invisible')
-  })
+  });
 })
