@@ -56,11 +56,11 @@ class CustomDisclosure extends HTMLElement {
      <details class="products-info">
        <summary class="summary">
          <div class="attention-sign">
-           <img class="alert-circle" src="https://cdn.pixabay.com/photo/2023/10/16/16/59/16-59-29-381_1280.png" alt="alert circle" />
+           <img class="alert-circle" src="https://github-production-user-asset-6210df.s3.amazonaws.com/37212452/275594719-fc27e15e-a6bd-4110-b671-e6f06b0a658b.svg" alt="alert circle" />
            <span class="alpha">ALPHA</span>
          </div>
          <p class="message">Important info regarding our service</p>
-         <img class="arrow-down" src="https://cdn.pixabay.com/photo/2023/10/16/17/04/17-04-27-888_1280.png" alt="arrow down" />
+         <img class="arrow-down" src="https://github.com/sofiiaruban/e-commerce-app/assets/37212452/0cbdb34b-c648-45d2-b638-184db4521ce6" alt="arrow down" />
        </summary>
        <p>
          <slot></slot>
