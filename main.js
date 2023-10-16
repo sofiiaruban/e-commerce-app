@@ -248,10 +248,11 @@ function displayCart(cartProductsList) {
          </div>
       </div>
       <div>
-        <img class="delete-product cursor-pointer align-top" data-product-id=${product.id} src="./assets/trash-can.svg" alt="trash-can">
+        <img class="delete-product cursor-pointer align-top" data-product-id=${product.id} src="https://github.com/sofiiaruban/e-commerce-app/assets/37212452/c703996c-cd2e-4c12-a7b0-17cb860c4fa5" alt="trash-can">
       </div>  
-    </li>`;
+    </li>`
     })
+    //cause trash can not uploaded in deploy replace it to link
   } else {
     cartList.innerHTML += '<p>There are no products yet </p>';
   }
