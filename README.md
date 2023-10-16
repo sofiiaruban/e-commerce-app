@@ -15,9 +15,9 @@ E-commerce App
 # About
 E-commerce App<br>
 Key Features:<br>
-&#8226; Show products <br>
-&#8226; Add to the cart <br> 
-&#8226; Edit the  cart <br>
+&nbsp; &#8226; Show products <br>
+&nbsp; &#8226; Add to the cart <br> 
+&nbsp; &#8226; Edit the  cart <br>
 
 # Demo link 
 Access my site at [https://sofiiaruban.github.io/task-manager-app/](https://sofiiaruban.github.io/e-commerce-app/)
@@ -47,4 +47,4 @@ npm install
 npm run dev
 
 # Technologies
-<p align="left"> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> '     '  <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a> </p>
+<p align="left"> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> &nbsp; &nbsp;<a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a> </p>
