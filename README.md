@@ -20,7 +20,7 @@ Key Features:<br>
 &#8226; Edit the  cart <br>
 
 # Demo link 
-Access my site at [https://sofiiaruban.github.io/task-manager-app/)](https://sofiiaruban.github.io/e-commerce-app/)
+Access my site at [https://sofiiaruban.github.io/task-manager-app/](https://sofiiaruban.github.io/e-commerce-app/)
 
 # Screenshots 
 
@@ -35,7 +35,7 @@ Access my site at [https://sofiiaruban.github.io/task-manager-app/)](https://sof
 # Getting Started
 
 ## Clone the repository
-git clone [https://github.com/sofiiaruban/task-manager-app.git](https://github.com/sofiiaruban/e-commerce-app.git)
+git clone [https://github.com/sofiiaruban/e-commerce-app.git](https://github.com/sofiiaruban/e-commerce-app.git)
 
 ## Navigate to the project folder
 cd e-commerce-app
