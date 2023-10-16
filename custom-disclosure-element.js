@@ -2,8 +2,8 @@ class CustomDisclosure extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.attractionimg = './assets/alert-circle.svg';
-        this.arrowimg = './assets/chevron-down.svg';
+        this.attractionimg = './assets/alert-circle.png';
+        this.arrowimg = './assets/chevron-down.png';
         this.shadowRoot.innerHTML = `
             <style>
               .products-info {
