@@ -13,7 +13,8 @@ export default {
         300: '300px'
       },
       fontFamily: {
-        grotesk: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans]
+        grotesk: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
+        space: ['"Space Mono"', defaultTheme.fontFamily.monospace]
       }
     },
     colors: {
