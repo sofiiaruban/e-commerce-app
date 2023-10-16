@@ -20,20 +20,12 @@
     <div class="wrapper flex justify-center flex-col items-center">
       <div class="h-full">
         <main class="main-content max-w-7xl">
-          <details class="products-info w-full bg-black rounded text-light-sand p-6 mb-12 ">
-            <summary class="flex gap-12">
-              <div class="flex">
-                <img class="mr-1" src="./assets/alert-circle.svg" alt="alert circle">
-                <span class="font-grotesk font-bold text-base">ALPHA</span>
-              </div>
-              <p class="grow font-grotesk font-medium text-xs pt-1">Important info regarding our service</p>
-              <img class="cursor-pointer" src="./assets/chevron-down.svg" alt="arrow down">
-            </summary>
+          <custom-disclosure>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda, quae vitae nulla possimus id qui,
               magnam dicta, voluptatibus sapiente vero necessitatibus amet praesentium sit aliquam deserunt?
               Non veritatis provident delectus.
             </p>
-          </details>
+          </custom-disclosure>
           <ul class="products-list flex flex-wrap gap-6 gap-y-12 font-grotesk"></ul>
           <ul class="pagination flex gap-2.5 justify-center mt-16 mb-48"></ul>
         </main>
@@ -73,6 +65,7 @@
         </div>
       </aside>
       <script type="module" src="/main.js"></script>
+      <script src="custom-disclosure-element.js"></script>
     </div>
   </body>
 </html>
