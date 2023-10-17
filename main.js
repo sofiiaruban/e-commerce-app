@@ -60,7 +60,7 @@ function addProductsToDOM(products, list) {
           <span> Slightly used </span>
           </div>
         </div>
-        <button type="button" data-product-id=${product.id} class="add-button bg-black text-white py-4 font-grotesk font-bold text-sm rounded">ADD TO CART</button>
+        <button type="button" data-product-id=${product.id} class="add-button bg-black text-white transition ease-in-out delay-150 active:-translate-y-1 active:scale-110 duration-300 py-4 font-bold text-sm rounded">ADD TO CART</button>
     </li>`
   })
   list.innerHTML = productListHTML;
